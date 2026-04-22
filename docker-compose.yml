@@ -2,9 +2,18 @@ services:
   backend:
     build:
       context: ./backend
+      target: build
+    command: ["dotnet", "watch", "--project", "OidcServer"]
     volumes:
       - ./backend/OidcServer/Src:/app/OidcServer/Src
       - ./Properties:/app/Properties
+    environment:
+      AdminCredentials__Username: adminuser
+      AdminCredentials__Password: adminpass
+      Jwt__Issuer: oidc-server
+      Jwt__Audience: oidc-frontend
+      Jwt__ExpirationMinutes: 360
+      Jwt__SigningKey: superhardkeyDadasuperhardkeyDada
     ports:
       - 8080:8080
   frontend:
