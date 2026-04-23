@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using OidcServer.Admin.AdminLogin;
 using OidcServer.Configurations;
+using OidcServer.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,9 @@ builder.Services.AddOptions<JwtConfiguration>()
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddControllers();
+string connectionString = builder.Configuration.GetConnectionString("Postgres") ??
+                          throw new ArgumentException("ConnectionStrings__Postgres not provided");
+builder.Services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
 
 var app = builder.Build();
 
