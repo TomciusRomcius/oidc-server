@@ -2,13 +2,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using OidcServer.Admin.AdminLogin;
 using OidcServer.Configurations;
 using OidcServer.Utils;
 using JwtRegisteredClaimNames = System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames;
 
-namespace OidcServer.Admin.AdminLogin;
+namespace OidcServer.Admin.Login;
 
 public sealed class LoginService : ILoginService
 {
