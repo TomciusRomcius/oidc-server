@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using OidcServer.Admin.AdminLogin;
 using OidcServer.Admin.Login;
@@ -22,13 +23,34 @@ string connectionString = builder.Configuration.GetConnectionString("Postgres") 
                           throw new ArgumentException("ConnectionStrings__Postgres not provided");
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(opts =>
+    {
+        opts.Cookie.HttpOnly = true;
+        // TODO: https and SecurePolicy.Always
+        opts.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+        // TODO: setup to strict or lax after setting up reverse proxy
+        opts.Cookie.SameSite = SameSiteMode.None;
+        
+        opts.ExpireTimeSpan = TimeSpan.FromHours(8);
+        opts.SlidingExpiration = true;
+        
+        opts.LoginPath = "/login";
+        opts.LogoutPath = "/logout";
+    });
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
+
+app.UseHttpsRedirection();
+app.UseCors(opts => opts.WithOrigins("http://localhost:4200").AllowCredentials().AllowAnyHeader().AllowAnyMethod());
 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
-app.UseHttpsRedirection();
 app.Run();

@@ -1,0 +1,28 @@
+<div class="w-screen min-h-screen flex items-center justify-center">
+  <form [formGroup]="form">
+    <mat-card class="p-8 flex flex-col gap-4 min-w-100">
+      <h1 class="text-2xl text-center">Sign in</h1>
+      <mat-form-field appearance="outline">
+        @if (form.get('username')?.errors?.['required']) {
+          <mat-error>Username is required.</mat-error>
+        }
+        @if (form.get('username')?.errors?.['minLength']) {
+          <mat-error>Username must be atleast 3 characters long.</mat-error>
+        }
+        <mat-label>Username</mat-label>
+        <input formControlName="username" matInput name="username" placeholder="Enter your username" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        @if (form.get('password')?.errors?.['required']) {
+          <mat-error>Password is required.</mat-error>
+        }
+        @if (form.get('password')?.errors?.['minLength']) {
+          <mat-error>Password must be atleast 8 characters long.</mat-error>
+        }
+        <mat-label>Password</mat-label>
+        <input formControlName="password" matInput name="password" placeholder="Enter your password" />
+      </mat-form-field>
+      <button (click)="onSubmit()" matButton="filled">Submit</button>
+    </mat-card>
+  </form>
+</div>

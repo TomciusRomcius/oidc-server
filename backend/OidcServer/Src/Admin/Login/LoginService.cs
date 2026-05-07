@@ -28,11 +28,11 @@ public sealed class LoginService : ILoginService
         _signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
     }
     
-    public Result<string> Login(LoginRequest request)
+    public Result<List<Claim>> Login(LoginRequest request)
     {
         if (request.Username != _adminCredentials.Username || request.Password != _adminCredentials.Password)
         {
-            return new Result<string>(
+            return new Result<List<Claim>>(
                 new ResultError(ResultErrorType.Validation, "Username or password is incorrect")
             );
         }
@@ -42,14 +42,7 @@ public sealed class LoginService : ILoginService
             new(JwtRegisteredClaimNames.UniqueName, "Username"),
             new("role", RoleTypes.Admin)
         ];
-        JwtSecurityToken token = new(
-            issuer: _jwtConfiguration.Issuer,
-            audience: _jwtConfiguration.Audience,
-            claims: claims,
-            signingCredentials: _signingCredentials
-        );
-        return new Result<string>(
-            new JwtSecurityTokenHandler().WriteToken(token)
-        );
+
+        return new Result<List<Claim>>(claims);
     }
 }

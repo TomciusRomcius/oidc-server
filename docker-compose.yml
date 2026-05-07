@@ -8,6 +8,7 @@ services:
       - ./backend/OidcServer/Src:/app/OidcServer/Src
       - ./Properties:/app/Properties
     environment:
+      ConnectionStrings__Postgres: Host=db;Port=5432;Database=postgres;Username=postgres;Password=postgres
       AdminCredentials__Username: adminuser
       AdminCredentials__Password: adminpass
       Jwt__Issuer: oidc-server
