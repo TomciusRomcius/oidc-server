@@ -5,6 +5,7 @@ services:
       target: build
     command: ["dotnet", "watch", "--project", "OidcServer"]
     volumes:
+      - ./backend/OidcServer/Migrations:/app/OidcServer/Migrations
       - ./backend/OidcServer/Src:/app/OidcServer/Src
       - ./Properties:/app/Properties
     environment:
