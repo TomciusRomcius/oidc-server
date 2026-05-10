@@ -20,10 +20,10 @@ import { responseToError } from '@/app/utils/api-utils';
     MatOption,
     MatInput,
     MatButton,
-    MatError
+    MatError,
 ],
-  templateUrl: './clients.html',
-  styleUrl: './clients.css',
+  templateUrl: './create-client.html',
+  styleUrl: './create-client.css',
 })
 export class Clients {
   private clientService = inject(ClientService);
