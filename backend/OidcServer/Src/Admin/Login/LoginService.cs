@@ -40,7 +40,7 @@ public sealed class LoginService : ILoginService
         List<Claim> claims =
         [
             new(JwtRegisteredClaimNames.UniqueName, "Username"),
-            new("role", RoleTypes.Admin)
+            new(ClaimTypes.Role, RoleTypes.Admin)
         ];
 
         return new Result<List<Claim>>(claims);
