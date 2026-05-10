@@ -26,6 +26,7 @@ public static class ControllerUtils
         return errorType switch
         {
             ResultErrorType.Validation => 400,
+            ResultErrorType.InvalidOperation => 400,
             ResultErrorType.Forbidden => 403,
             _ => 500
         };

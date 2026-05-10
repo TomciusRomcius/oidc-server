@@ -4,6 +4,7 @@ public enum ResultErrorType
 {
     Validation = 0,
     Forbidden = 1,
+    InvalidOperation = 2,
 }
 
 public class ResultError
