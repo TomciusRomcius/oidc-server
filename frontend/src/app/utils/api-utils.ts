@@ -7,6 +7,7 @@ export function responseToModel<T>(observable: Observable<ApiResponseModel<T>>) 
 }
 
 export function responseToError(response: unknown) {
+  console.log(response);
   const res = response as ErrorResponseModel;
-  return res.error ?? 'Unknown error';
+  return res.error.title ?? 'Unknown error';
 }

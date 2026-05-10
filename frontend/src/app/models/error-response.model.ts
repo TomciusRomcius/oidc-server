@@ -1,3 +1,5 @@
 export default interface ErrorResponseModel {
-  error?: string;
+  error: {
+    title?: string;
+  };
 }

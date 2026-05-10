@@ -30,9 +30,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         opts.Cookie.HttpOnly = true;
         // TODO: https and SecurePolicy.Always
-        opts.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+        opts.Cookie.SecurePolicy = CookieSecurePolicy.None;
         // TODO: setup to strict or lax after setting up reverse proxy
-        opts.Cookie.SameSite = SameSiteMode.None;
+        opts.Cookie.SameSite = SameSiteMode.Lax;
         
         opts.ExpireTimeSpan = TimeSpan.FromHours(8);
         opts.SlidingExpiration = true;
