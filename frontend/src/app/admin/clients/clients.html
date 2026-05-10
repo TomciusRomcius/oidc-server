@@ -6,6 +6,11 @@
       <mat-form-field>
         <mat-label>Client ID</mat-label>
         <input formControlName="clientId" matInput placeholder="Enter client ID" />
+        @if (form.get('clientId')?.errors?.['required'] && form.get('clientId')?.touched) {
+          <mat-error>Please set client id</mat-error>
+        } @else if (form.get('clientId')?.errors?.['maxlength'] && form.get('clientId')?.touched) {
+          <mat-error>ClientID must not exceed 32 characters</mat-error>
+        }
       </mat-form-field>
       <mat-form-field>
         <mat-label>Flow type</mat-label>

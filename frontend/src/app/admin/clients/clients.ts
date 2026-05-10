@@ -40,6 +40,8 @@ export class Clients {
 
   onSubmit() {
     if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     }
 
     const { clientId, flowType } = this.form.getRawValue();
