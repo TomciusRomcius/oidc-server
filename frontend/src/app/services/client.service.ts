@@ -17,8 +17,23 @@ export default class ClientService {
     );
   }
 
+  getOne(clientId: string): Observable<ClientModel | null> {
+    return responseToModel(
+      this.httpClient.get<ApiResponseModel<ClientModel | null>>(
+        `${environment.backendUrl}/client/${encodeURIComponent(clientId)}`,
+      ),
+    );
+  }
+
   createClient(clientId: string, flowType: FlowType): Observable<void> {
     return this.httpClient.post<void>(`${environment.backendUrl}/client`, {
+      clientId,
+      oidcFlowType: flowType,
+    });
+  }
+
+  updateClient(clientId: string, flowType: FlowType): Observable<void> {
+    return this.httpClient.put<void>(`${environment.backendUrl}/client`, {
       clientId,
       oidcFlowType: flowType,
     });

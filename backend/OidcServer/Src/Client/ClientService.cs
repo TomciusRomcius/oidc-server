@@ -29,4 +29,25 @@ public class ClientService(DatabaseContext dbContext) : IClientService
         await dbContext.SaveChangesAsync();
         return null;
     }
+
+    public async Task<ResultError?> UpdateClientAsync(CreateClientRequest request)
+    {
+        var existingClient = await dbContext.Clients.SingleOrDefaultAsync(c => c.ClientId == request.ClientId);
+        if (existingClient is null)
+        {
+            return new ResultError(ResultErrorType.InvalidOperation, "Client does not exist");
+        }
+        else
+        {
+            existingClient.OidcFlowType = request.OidcFlowType;
+        }
+        await dbContext.SaveChangesAsync();
+        return null;
+    }
+
+    public async Task<ClientAggregate?> GetClientAsync(string clientId) =>
+        await dbContext.Clients
+            .Where(c => c.ClientId == clientId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
 }

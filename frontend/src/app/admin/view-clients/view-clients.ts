@@ -1,6 +1,6 @@
 import ClientModel from '@/app/models/client-model';
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { Page } from '@/app/shared/page/page';
 import {
@@ -31,6 +31,7 @@ import {
     MatCellDef,
     MatHeaderRowDef,
     MatRowDef,
+    RouterLink,
   ],
   templateUrl: './view-clients.html',
   styleUrl: './view-clients.css',

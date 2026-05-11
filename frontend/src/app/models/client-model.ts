@@ -5,5 +5,5 @@ export enum FlowType {
 
 export default interface ClientModel {
   clientId: string;
-  flowType: FlowType;
+  oidcFlowType: FlowType;
 }
